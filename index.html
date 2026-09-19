@@ -59,7 +59,7 @@
         Listen to the mixes
       </a>
       <a class="btn" href="#projects">See the projects</a>
-      <a class="btn btn-ghost" id="hero-resume" href="#" download>Download resume</a>
+      <a class="btn btn-ghost" href="#resume">View resume</a>
     </div>
     <dl class="facts" id="hero-facts"></dl>
   </div>
@@ -127,9 +127,10 @@
       <div class="sec-head">
         <p class="eyebrow">04 — Paper</p>
         <h2>Resume</h2>
-        <p class="sec-sub">The one-page version.</p>
+        <p class="sec-sub">One page each. Pick the version that fits.</p>
       </div>
       <div class="resume-card">
+        <div class="resume-tabs" role="tablist" aria-label="Resume version" id="resume-tabs"></div>
         <div class="resume-actions">
           <a class="btn btn-primary" id="resume-dl" href="#" download>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3v10.17l3.59-3.58L17 11l-5 5-5-5 1.41-1.41L12 13.17V3h0zM5 19h14v2H5z"/></svg>
@@ -144,6 +145,7 @@
             <a id="resume-fallback-link" href="#">open the resume directly</a>.
           </p>
         </object>
+      </div>
       </div>
     </div>
   </section>
@@ -160,7 +162,7 @@
     <div class="footer-links">
       <a id="footer-linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
       <a id="footer-github" href="#" target="_blank" rel="noopener">GitHub</a>
-      <a id="footer-resume" href="#" download>Resume</a>
+      <span id="footer-resumes"></span>
     </div>
   </div>
   <div class="wrap footer-base">

@@ -32,18 +32,53 @@
 
     [["#nav-linkedin", SITE.linkedin], ["#resume-linkedin", SITE.linkedin],
      ["#footer-linkedin", SITE.linkedin], ["#nav-github", SITE.github],
-     ["#footer-github", SITE.github], ["#hero-resume", SITE.resume],
-     ["#resume-dl", SITE.resume], ["#resume-open", SITE.resume],
-     ["#footer-resume", SITE.resume], ["#resume-fallback-link", SITE.resume]
+     ["#footer-github", SITE.github]
     ].forEach(([sel, href]) => { const el = $(sel); if (el) el.href = href; });
-
-    const embed = $("#resume-embed");
-    if (embed) embed.data = SITE.resume + "#view=FitH";
 
     const mail = $("#footer-mail");
     mail.href = "mailto:" + SITE.email;
     mail.textContent = SITE.email;
     $("#footer-loc").textContent = SITE.location;
+  }
+
+  function renderResumes() {
+    const tabs = $("#resume-tabs");
+
+    function show(r, focus) {
+      $$(".resume-tab", tabs).forEach((b) => {
+        const on = b.dataset.id === r.id;
+        b.setAttribute("aria-selected", on);
+        b.tabIndex = on ? 0 : -1;
+        if (on && focus) b.focus();
+      });
+      $("#resume-dl").href = r.file;
+      $("#resume-open").href = r.file;
+      $("#resume-fallback-link").href = r.file;
+      // Fresh <object> each time: swapping .data on a live one is unreliable.
+      const old = $("#resume-embed");
+      const fresh = old.cloneNode(true);
+      fresh.data = r.file + "#view=FitH";
+      old.replaceWith(fresh);
+    }
+
+    tabs.innerHTML = RESUMES.map((r) =>
+      '<button class="resume-tab" role="tab" type="button" data-id="' + r.id + '">' +
+      r.label + "</button>").join("");
+
+    $$(".resume-tab", tabs).forEach((b, i) => {
+      b.addEventListener("click", () => show(RESUMES[i], false));
+      b.addEventListener("keydown", (e) => {
+        if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+        const n = (i + (e.key === "ArrowRight" ? 1 : RESUMES.length - 1)) % RESUMES.length;
+        e.preventDefault();
+        show(RESUMES[n], true);
+      });
+    });
+
+    $("#footer-resumes").innerHTML = RESUMES.map((r) =>
+      '<a href="' + r.file + '" download>Resume — ' + r.label.toLowerCase() + "</a>").join("");
+
+    show(RESUMES[0], false);
   }
 
   function renderProjects() {
@@ -385,6 +420,7 @@
 
   function init() {
     fillStatic();
+    renderResumes();
     renderProjects();
     navBehaviour();
     heroViz();

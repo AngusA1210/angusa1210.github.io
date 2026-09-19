@@ -9,7 +9,6 @@ const SITE = {
   email: "cras.aangus@gmail.com",
   linkedin: "https://www.linkedin.com/in/andrew-angus-226612287/",
   github: "https://github.com/AngusA1210",
-  resume: "assets/docs/Andrew-Angus-Resume.pdf",
 
   lede:
     "I'm a software developer and an audio engineer. I have a Bachelor of " +
@@ -23,6 +22,14 @@ const SITE = {
     { k: "Based in", v: "New York, NY" }
   ]
 };
+
+// The first entry is the one shown by default.
+const RESUMES = [
+  { id: "software", label: "Software",
+    file: "assets/docs/Andrew-Angus-Software-Resume.pdf" },
+  { id: "audio", label: "Audio engineering",
+    file: "assets/docs/Andrew-Angus-Audio-Engineering-Resume.pdf" }
+];
 
 const TRACKS = [
   {

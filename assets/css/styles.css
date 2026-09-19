@@ -359,6 +359,24 @@ h2 {
   background: var(--bg-raised);
   overflow: hidden;
 }
+.resume-tabs {
+  display: flex; gap: 6px; padding: 14px 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+.resume-tab {
+  font: 500 13px var(--mono);
+  color: var(--muted);
+  background: none; border: 0; cursor: pointer;
+  padding: 10px 14px;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color .18s ease, border-color .18s ease;
+}
+.resume-tab:hover { color: var(--text); }
+.resume-tab[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+
+#footer-resumes { display: contents; }
+
 .resume-actions {
   display: flex; flex-wrap: wrap; gap: 12px;
   padding: 22px;
