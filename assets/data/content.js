@@ -25,9 +25,16 @@ const SITE = {
 
 const TRACKS = [
   {
-    id: "jakes-sad-song",                // matches assets/audio/<id>.m4a
+    id: "undone-cover",                  // matches assets/audio/<id>.m4a
+    title: "Undone (Cover)",
+    artist: "Pick Me Girls",
+    role: "Mix &amp; Master",
+    year: "2026"
+  },
+  {
+    id: "jakes-sad-song",
     title: "Jake's Sad Song",
-    artist: "",                          // TODO: artist name
+    artist: "Pick Me Girls",
     role: "Mix",
     year: "2026"
   },
@@ -36,13 +43,6 @@ const TRACKS = [
     title: "White Girl Music",
     artist: "Pick Me Girls",
     role: "Recording &amp; Mix",
-    year: "2026"
-  },
-  {
-    id: "undone-cover",
-    title: "Undone (Cover)",
-    artist: "Pick Me Girls",
-    role: "Mix &amp; Master",
     year: "2026"
   }
 ];
