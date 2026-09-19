@@ -4,7 +4,7 @@
 
 const SITE = {
   name: "Andrew Angus",
-  role: "Audio Engineer · Software Developer",
+  role: "Software Developer · Audio Engineer",
   location: "New York, NY",
   email: "cras.aangus@gmail.com",
   linkedin: "https://www.linkedin.com/in/andrew-angus-226612287/",
@@ -12,14 +12,15 @@ const SITE = {
   resume: "assets/docs/Andrew-Angus-Resume.pdf",
 
   lede:
-    "I record, mix, and master music — and I write software. Formal training " +
-    "on SSL and API consoles, and a computer science degree.",
+    "I'm a software developer and an audio engineer. I have a Bachelor of " +
+    "Science in Computer Science from Northern Arizona University, and formal " +
+    "training in recording, mixing and mastering.",
 
   facts: [
-    { k: "Currently", v: "Mixing &amp; mastering out of New York" },
+    { k: "Degree", v: "B.S. Computer Science, Northern Arizona University" },
+    { k: "Audio training", v: "CRAS Master Recording Program II" },
     { k: "Recently", v: "Audio Engineering Intern, Electric Lady Studios" },
-    { k: "Trained at", v: "CRAS Master Recording Program II" },
-    { k: "Also", v: "B.S. Computer Science, Northern Arizona University" }
+    { k: "Based in", v: "New York, NY" }
   ]
 };
 
