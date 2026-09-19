@@ -28,21 +28,21 @@ const TRACKS = [
     id: "undone-cover",                  // matches assets/audio/<id>.m4a
     title: "Undone (Cover)",
     artist: "Pick Me Girls",
-    role: "Mix &amp; Master",
+    role: "Recording, Mix &amp; Master",
     year: "2026"
   },
   {
     id: "jakes-sad-song",
     title: "Jake's Sad Song",
     artist: "Pick Me Girls",
-    role: "Mix",
+    role: "Recording, Mix &amp; Master",
     year: "2026"
   },
   {
     id: "white-girl-music",
     title: "White Girl Music",
     artist: "Pick Me Girls",
-    role: "Recording &amp; Mix",
+    role: "Recording, Mix &amp; Master",
     year: "2026"
   }
 ];
