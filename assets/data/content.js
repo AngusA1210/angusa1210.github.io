@@ -13,7 +13,7 @@ const SITE = {
   // "Listening to" card. Leave user or apiKey empty and the card stays hidden.
   // The key is read-only and ends up in the public page, which is normal for
   // Last.fm's API; it can't be used to change anything on the account.
-  lastfm: { user: "", apiKey: "" },
+  lastfm: { user: "AndrewAngus", apiKey: "f78da223114e6092f97ff736847c9084" },
 
   lede:
     "I'm a software developer and an audio engineer. I have a Bachelor of " +
