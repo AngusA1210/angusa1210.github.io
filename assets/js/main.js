@@ -416,6 +416,76 @@
     $$(".reveal:not(.in)").forEach((el) => revealObserver.observe(el));
   }
 
+  /* ---------- listening (Last.fm) -------------------------------------- */
+
+  // Last.fm's placeholder for "no artwork"; showing it would look like a bug.
+  const NO_ART = "2a96cbd8b46e442fc41c2b86b821562f";
+
+  function ago(uts) {
+    const s = Math.max(0, Math.floor(Date.now() / 1000) - uts);
+    if (s < 90) return "just now";
+    const units = [["day", 86400], ["hour", 3600], ["minute", 60]];
+    for (const [name, size] of units) {
+      const n = Math.floor(s / size);
+      if (n >= 1) return n + " " + name + (n > 1 ? "s" : "") + " ago";
+    }
+    return "just now";
+  }
+
+  function listening() {
+    const cfg = SITE.lastfm || {};
+    const card = $("#listening");
+    if (!cfg.user || !cfg.apiKey || !card) return;   // not configured: stay hidden
+
+    const url = "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks" +
+      "&user=" + encodeURIComponent(cfg.user) +
+      "&api_key=" + encodeURIComponent(cfg.apiKey) +
+      "&format=json&limit=1";
+
+    function paint(t) {
+      const live = !!(t["@attr"] && t["@attr"].nowplaying === "true");
+      const status = $("#listening-status");
+      card.classList.toggle("live", live);
+      status.textContent = "";
+      if (live) {
+        const eq = document.createElement("span");
+        eq.className = "eq";
+        eq.setAttribute("aria-hidden", "true");
+        eq.innerHTML = "<i></i><i></i><i></i>";
+        status.append(eq, "Listening now");
+      } else {
+        status.textContent = t.date ? "Last played · " + ago(+t.date.uts) : "Last played";
+      }
+
+      $("#listening-title").textContent = t.name || "";
+      $("#listening-artist").textContent = t.artist ? (t.artist["#text"] || t.artist.name || "") : "";
+      card.href = t.url || "https://www.last.fm/user/" + encodeURIComponent(cfg.user);
+
+      const imgs = (t.image || []).map((i) => i["#text"]).filter((u) => u && !u.includes(NO_ART));
+      const art = $("#listening-art");
+      art.style.backgroundImage = imgs.length ? 'url("' + imgs[imgs.length - 1] + '")' : "";
+
+      card.hidden = false;
+    }
+
+    function refresh() {
+      if (document.hidden) return;
+      fetch(url)
+        .then((r) => r.json())
+        .then((d) => {
+          // API errors (bad key, unknown user) arrive as 200/403 JSON with .error
+          if (d.error || !d.recenttracks) return;
+          const t = [].concat(d.recenttracks.track || [])[0];
+          if (t) paint(t);
+        })
+        .catch(() => { /* offline or blocked: leave whatever is showing */ });
+    }
+
+    refresh();
+    setInterval(refresh, 45000);
+    document.addEventListener("visibilitychange", refresh);
+  }
+
   /* ---------- boot ------------------------------------------------------ */
 
   function init() {
@@ -424,6 +494,7 @@
     renderProjects();
     navBehaviour();
     heroViz();
+    listening();
 
     fetch("assets/data/waveforms.json")
       .then((r) => (r.ok ? r.json() : null))

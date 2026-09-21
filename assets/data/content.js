@@ -10,6 +10,11 @@ const SITE = {
   linkedin: "https://www.linkedin.com/in/andrew-angus-226612287/",
   github: "https://github.com/AngusA1210",
 
+  // "Listening to" card. Leave user or apiKey empty and the card stays hidden.
+  // The key is read-only and ends up in the public page, which is normal for
+  // Last.fm's API; it can't be used to change anything on the account.
+  lastfm: { user: "", apiKey: "" },
+
   lede:
     "I'm a software developer and an audio engineer. I have a Bachelor of " +
     "Science in Computer Science from Northern Arizona University, and formal " +

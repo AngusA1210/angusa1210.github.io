@@ -393,6 +393,47 @@ h2 {
 /* ---------- footer ---------------------------------------------------- */
 
 .footer { border-top: 1px solid var(--line); background: var(--bg-sunk); padding-top: 64px; }
+.listening {
+  display: flex; align-items: center; gap: 16px;
+  max-width: 460px;
+  margin: 0 0 48px;
+  padding: 12px 16px 12px 12px;
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  text-decoration: none; color: var(--text);
+  transition: border-color .2s ease;
+}
+.listening[hidden] { display: none; }
+.listening:hover { border-color: #2f343b; }
+.listening-art {
+  width: 56px; height: 56px; flex: none;
+  border-radius: 8px; background: var(--bg-sunk) center / cover no-repeat;
+  border: 1px solid var(--line-soft);
+}
+.listening-body { display: flex; flex-direction: column; min-width: 0; gap: 2px; }
+.listening-status {
+  display: flex; align-items: center; gap: 8px;
+  font: 500 11px var(--mono); letter-spacing: .14em; text-transform: uppercase;
+  color: var(--dim);
+}
+.listening.live .listening-status { color: var(--signal); }
+.listening-title, .listening-artist {
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.listening-title { font-weight: 600; font-size: .98rem; }
+.listening-artist { color: var(--muted); font-size: .88rem; }
+
+.eq { display: none; gap: 2px; align-items: flex-end; height: 11px; }
+.listening.live .eq { display: inline-flex; }
+.eq i {
+  width: 2px; height: 100%; background: currentColor; border-radius: 1px;
+  transform-origin: bottom; animation: eq 1s ease-in-out infinite;
+}
+.eq i:nth-child(2) { animation-delay: -.35s; }
+.eq i:nth-child(3) { animation-delay: -.7s; }
+@keyframes eq { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
+
 .footer-inner {
   display: flex; flex-wrap: wrap; gap: 32px;
   justify-content: space-between; align-items: flex-start;
@@ -431,6 +472,7 @@ h2 {
 .reveal.in { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1); }
 
 @media (prefers-reduced-motion: reduce) {
+  .eq i { animation: none; transform: scaleY(.7); }
   .reveal, .reveal.in { opacity: 1; transform: none; transition: none; }
   .btn:hover, .project:hover { transform: none; }
   * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
