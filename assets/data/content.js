@@ -50,13 +50,6 @@ const TRACKS = [
     artist: "Pick Me Girls",
     role: "Recording, Mix &amp; Master",
     year: "2026"
-  },
-  {
-    id: "white-girl-music",
-    title: "White Girl Music",
-    artist: "Pick Me Girls",
-    role: "Recording, Mix &amp; Master",
-    year: "2026"
   }
 ];
 
