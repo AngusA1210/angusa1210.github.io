@@ -41,14 +41,21 @@ const TRACKS = [
     id: "fired",                         // matches assets/audio/<id>.m4a
     title: "Fired",
     artist: "Pick Me Girls",
-    role: "Recording, Mix &amp; Master",
+    role: "Head Recording Engineer, Mix &amp; Master",
     year: "2026"
   },
   {
     id: "undone-cover",
     title: "Undone (Cover)",
     artist: "Pick Me Girls",
-    role: "Recording, Mix &amp; Master",
+    role: "Head Recording Engineer, Mix &amp; Master",
+    year: "2026"
+  },
+  {
+    id: "spot-for-me",
+    title: "Spot For Me",
+    artist: "Pick Me Girls",
+    role: "Assistant Recording Engineer, Mix &amp; Master",
     year: "2026"
   }
 ];
