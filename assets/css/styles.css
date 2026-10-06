@@ -262,6 +262,37 @@ h2 {
 .track-credit .sep { color: var(--dim); margin-inline: 7px; }
 .track-credit .role { color: var(--signal); }
 
+.vol { display: flex; align-items: center; gap: 6px; flex: none; }
+.vol-btn {
+  width: 30px; height: 30px; padding: 0;
+  display: grid; place-items: center;
+  background: none; border: 0; border-radius: 6px;
+  color: var(--muted); cursor: pointer;
+  transition: color .18s ease, background .18s ease;
+}
+.vol-btn svg { width: 18px; height: 18px; }
+.vol-btn:hover { color: var(--text); background: var(--bg-sunk); }
+
+.vol-range {
+  -webkit-appearance: none; appearance: none;
+  width: 92px; height: 18px; margin: 0;
+  background: transparent; cursor: pointer;
+}
+.vol-range::-webkit-slider-runnable-track {
+  height: 4px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent) var(--v, 100%), #2b3037 var(--v, 100%));
+}
+.vol-range::-moz-range-track { height: 4px; border-radius: 2px; background: #2b3037; }
+.vol-range::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--accent); }
+.vol-range::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 12px; height: 12px; margin-top: -4px;
+  border-radius: 50%; border: 0; background: #f3efea;
+}
+.vol-range::-moz-range-thumb {
+  width: 12px; height: 12px; border-radius: 50%; border: 0; background: #f3efea;
+}
+
 .track-time {
   font: 400 12.5px var(--mono); color: var(--dim);
   flex: none; font-variant-numeric: tabular-nums;
@@ -283,6 +314,7 @@ h2 {
 @media (max-width: 560px) {
   .track { padding: 18px 16px; }
   .track-time { display: none; }
+  .vol { display: none; }
   .wave-wrap { height: 64px; }
 }
 

@@ -17,6 +17,8 @@
   };
 
   const ICON_PLAY  = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.14v13.72L19 12z"/></svg>';
+  const ICON_VOL   = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 10v4h4l5 4V6L7 10H3zm13.5 2a4.5 4.5 0 0 0-2.5-4.03v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54z"/></svg>';
+  const ICON_MUTED = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 10v4h4l5 4V6L7 10H3zm18.3-.9-1.4-1.4L17.5 10l-2.4-2.3-1.4 1.4 2.4 2.4-2.4 2.4 1.4 1.4 2.4-2.4 2.4 2.4 1.4-1.4-2.4-2.4 2.4-2.4z"/></svg>';
   const ICON_PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
 
   /* ---------- static content ------------------------------------------ */
@@ -106,9 +108,40 @@
 
   /* ---------- audio ---------------------------------------------------- */
 
-  let audioCtx = null, analyser = null, freqData = null;
+  let audioCtx = null, analyser = null, gainNode = null, freqData = null;
   let activePlayer = null;
   const players = [];
+
+  // One volume for every player, remembered between visits.
+  const VOL_KEY = "aa-volume";
+  let volume = 1, lastAudible = 1;
+  try {
+    const saved = parseFloat(localStorage.getItem(VOL_KEY));
+    if (saved >= 0 && saved <= 1) volume = saved;
+  } catch (e) { /* storage blocked: start at full */ }
+  if (volume > 0) lastAudible = volume;
+  const volumeUIs = [];
+
+  function applyVolume() {
+    // Squared so the slider feels even to the ear rather than bunching up loud.
+    const level = volume * volume;
+    if (gainNode) gainNode.gain.value = level;
+    players.forEach((p) => {
+      // Wired players are scaled by the gain node; never scale twice.
+      p.audio.volume = (gainNode && p.audio._wired) ? 1 : level;
+    });
+    volumeUIs.forEach((ui) => ui.sync());
+  }
+
+  function setVolume(v) {
+    volume = Math.min(1, Math.max(0, v));
+    if (volume > 0) {
+      lastAudible = volume;
+      // Mute is for this visit only; nobody should come back to a silent page.
+      try { localStorage.setItem(VOL_KEY, String(volume)); } catch (e) { /* ignore */ }
+    }
+    applyVolume();
+  }
 
   function ensureGraph(audio) {
     // One shared AudioContext + analyser; each <audio> is wired in once.
@@ -120,7 +153,11 @@
         analyser.fftSize = 512;
         analyser.smoothingTimeConstant = 0.75;
         freqData = new Uint8Array(analyser.frequencyBinCount);
-        analyser.connect(audioCtx.destination);
+        // Volume sits after the analyser, so the hero bars show the music
+        // itself and don't shrink when the listener turns it down.
+        gainNode = audioCtx.createGain();
+        analyser.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
       }
       if (!audio._wired) {
         audioCtx.createMediaElementSource(audio).connect(analyser);
@@ -129,8 +166,9 @@
       if (audioCtx.state === "suspended") audioCtx.resume();
     } catch (e) {
       // Visualiser is decorative — playback must never depend on it.
-      audioCtx = null; analyser = null;
+      audioCtx = null; analyser = null; gainNode = null;
     }
+    applyVolume();
   }
 
   function makePlayer(track, peaks) {
@@ -144,6 +182,10 @@
             (track.artist ? track.artist + '<span class="sep">/</span>' : "") +
             '<span class="role">' + track.role + "</span>" +
             '<span class="sep">/</span>' + track.year + "</p></div>" +
+        '<div class="vol">' +
+          '<button class="vol-btn" type="button" aria-label="Mute">' + ICON_VOL + "</button>" +
+          '<input class="vol-range" type="range" min="0" max="100" step="1" aria-label="Volume">' +
+        "</div>" +
         '<div class="track-time"><span class="cur">0:00</span> / <span class="dur">—:—</span></div>' +
       "</div>" +
       '<div class="wave-wrap" role="slider" tabindex="0" aria-label="Seek ' + track.title +
@@ -264,10 +306,26 @@
       if (handled) { e.preventDefault(); if (d) setProgress(audio.currentTime / d); }
     });
 
+    const volBtn = $(".vol-btn", el);
+    const volRange = $(".vol-range", el);
+    volumeUIs.push({
+      sync() {
+        const pct = Math.round(volume * 100);
+        volRange.value = pct;
+        volRange.style.setProperty("--v", pct + "%");
+        volRange.setAttribute("aria-valuetext", pct + "%");
+        volBtn.innerHTML = volume === 0 ? ICON_MUTED : ICON_VOL;
+        volBtn.setAttribute("aria-label", volume === 0 ? "Unmute" : "Mute");
+      }
+    });
+    volRange.addEventListener("input", () => setVolume(volRange.value / 100));
+    volBtn.addEventListener("click", () => setVolume(volume === 0 ? lastAudible : 0));
+
     window.addEventListener("resize", resize);
     requestAnimationFrame(resize);
 
     players.push(player);
+    applyVolume();
     return el;
   }
 
