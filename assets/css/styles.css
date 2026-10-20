@@ -321,7 +321,11 @@ h2 {
 /* ---------- projects -------------------------------------------------- */
 
 .projects { display: grid; gap: 20px; }
-@media (min-width: 900px) { .projects { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 900px) {
+  .projects { grid-template-columns: 1fr 1fr; }
+  /* An odd one out takes the full row rather than leaving a hole beside it. */
+  .project:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
 
 .project {
   display: flex; flex-direction: column;

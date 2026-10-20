@@ -62,6 +62,21 @@ const TRACKS = [
 
 const PROJECTS = [
   {
+    title: "SoundRoom",
+    tag: "Spatial audio · Music workstation",
+    year: "2026",
+    blurb:
+      "A 3D room for playing and recording music. You walk among the " +
+      "instruments in first person, and everything you hear is rendered " +
+      "binaurally from where you stand and which way you face. It plays MIDI " +
+      "instruments, Audio Unit plug-ins and live input from a microphone or " +
+      "audio interface, with a mixer and a recording timeline modelled on Pro " +
+      "Tools. Playing together online is the goal; for now it is one player " +
+      "per room.",
+    stack: ["C++", "Godot", "GDScript", "Steam Audio", "Audio Units", "MIDI", "macOS"],
+    links: []
+  },
+  {
     title: "StreamerIsolate",
     tag: "Audio ML · Browser extension",
     year: "2025 – 2026",

@@ -91,7 +91,7 @@
             ' <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">' +
             '<path fill="currentColor" d="M14 3v2h3.59l-9.3 9.29 1.42 1.42L19 6.41V10h2V3h-7zM5 5h5V3H3v18h18v-7h-2v5H5V5z"/>' +
             "</svg></a>").join("")
-        : '<span class="private">Private repository — happy to walk through it</span>';
+        : '<span class="private">Private repository — demos available on request</span>';
 
       return (
         '<article class="project reveal">' +
