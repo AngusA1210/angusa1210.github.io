@@ -1,7 +1,7 @@
-# angusa1210.github.io
+# andrewangus.dev
 
 Andrew Angus — audio engineer and software developer.
-Mixes, projects and resume: <https://angusa1210.github.io>
+Mixes, projects and resume: <https://andrewangus.dev>
 
 Static HTML/CSS/JS, served by GitHub Pages. No build step, no dependencies,
 no trackers.
