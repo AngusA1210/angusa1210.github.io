@@ -38,15 +38,15 @@ const RESUMES = [
 
 const TRACKS = [
   {
-    id: "fired",                         // matches assets/audio/<id>.m4a
-    title: "Fired",
+    id: "undone-cover",                  // matches assets/audio/<id>.m4a
+    title: "Undone (Cover)",
     artist: "Pick Me Girls",
     role: "Head Recording Engineer, Mix &amp; Master",
     year: "2026"
   },
   {
-    id: "undone-cover",
-    title: "Undone (Cover)",
+    id: "fired",
+    title: "Fired",
     artist: "Pick Me Girls",
     role: "Head Recording Engineer, Mix &amp; Master",
     year: "2026"
