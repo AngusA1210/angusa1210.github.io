@@ -63,6 +63,9 @@
       old.replaceWith(fresh);
     }
 
+    // A single resume needs no tab strip.
+    tabs.hidden = RESUMES.length < 2;
+
     tabs.innerHTML = RESUMES.map((r) =>
       '<button class="resume-tab" role="tab" type="button" data-id="' + r.id + '">' +
       r.label + "</button>").join("");
@@ -78,7 +81,8 @@
     });
 
     $("#footer-resumes").innerHTML = RESUMES.map((r) =>
-      '<a href="' + r.file + '" download>Resume — ' + r.label.toLowerCase() + "</a>").join("");
+      '<a href="' + r.file + '" download>' +
+      (RESUMES.length > 1 ? "Resume — " + r.label.toLowerCase() : "Resume") + "</a>").join("");
 
     show(RESUMES[0], false);
   }

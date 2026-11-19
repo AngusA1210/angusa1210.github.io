@@ -394,6 +394,7 @@ h2 {
   display: flex; gap: 6px; padding: 14px 22px 0;
   border-bottom: 1px solid var(--line);
 }
+.resume-tabs[hidden] { display: none; }
 .resume-tab {
   font: 500 13px var(--mono);
   color: var(--muted);

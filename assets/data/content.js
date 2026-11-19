@@ -28,12 +28,9 @@ const SITE = {
   ]
 };
 
-// The first entry is the one shown by default.
+// One entry shows a single resume; add more and they become tabs.
 const RESUMES = [
-  { id: "software", label: "Software",
-    file: "assets/docs/Andrew-Angus-Software-Resume.pdf" },
-  { id: "audio", label: "Audio engineering",
-    file: "assets/docs/Andrew-Angus-Audio-Engineering-Resume.pdf" }
+  { id: "resume", label: "Resume", file: "assets/docs/Andrew-Angus-Resume.pdf" }
 ];
 
 const TRACKS = [
@@ -62,20 +59,24 @@ const TRACKS = [
 
 const PROJECTS = [
   {
-    title: "SoundRoom",
+    title: "StudioSim",
     tag: "Spatial audio · Music workstation",
     year: "2026",
     blurb:
-      "A 3D room for playing and recording music. You walk among the " +
-      "instruments in first person, and everything you hear is rendered " +
-      "binaurally from where you stand and which way you face. It plays MIDI " +
-      "instruments, Audio Unit plug-ins and live input from a microphone or " +
-      "audio interface, with a mixer and a recording timeline modelled on Pro " +
-      "Tools. Playing together online is the goal; for now it is one player " +
-      "per room.",
-    stack: ["C++", "Godot", "GDScript", "Steam Audio", "Audio Units", "MIDI", "macOS"],
-    links: []
-  },
+      "A 3D music studio and workstation for macOS and Windows. You walk around " +
+      "a room of instruments, and everything you hear is rendered binaurally " +
+      "from where you stand and which way you face. Walls and surface materials " +
+      "shape how sound reflects and travels, and microphones have modeled pickup " +
+      "patterns. Rooms are recorded, edited and mixed the way a DAW works, and " +
+      "players can host a room and join each other over a network or the " +
+      "internet. Free and open source; version 0.1.0 is out.",
+    stack: ["C++", "Godot", "GDScript", "Steam Audio", "VST3", "Audio Units", "MIDI", "CMake", "macOS / Windows"],
+    links: [
+      // The website moves to its own domain once one is bought; change it here.
+      { label: "Website", href: "https://soundroom.aja662.workers.dev/" },
+      { label: "Source on GitHub", href: "https://github.com/AngusA1210/StudioSim" }
+    ]
+  },,
   {
     title: "StreamerIsolate",
     tag: "Audio ML · Browser extension",
