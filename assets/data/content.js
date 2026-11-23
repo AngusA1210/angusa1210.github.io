@@ -72,8 +72,7 @@ const PROJECTS = [
       "internet. Free and open source; version 0.1.0 is out.",
     stack: ["C++", "Godot", "GDScript", "Steam Audio", "VST3", "Audio Units", "MIDI", "CMake", "macOS / Windows"],
     links: [
-      // The website moves to its own domain once one is bought; change it here.
-      { label: "Website", href: "https://soundroom.aja662.workers.dev/" },
+      { label: "Website", href: "https://www.studiosimwebsite.com/" },
       { label: "Source on GitHub", href: "https://github.com/AngusA1210/StudioSim" }
     ]
   },,
